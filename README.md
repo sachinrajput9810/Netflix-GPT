@@ -1,5 +1,11 @@
 # NETFLIX GPT
 
+- Create react app
+- setup tailwind
+- Header build
+- Login form
+
+
 ### Architecture of the app
 
 - Sign In/Sign up page
