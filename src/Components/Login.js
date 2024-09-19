@@ -22,7 +22,7 @@ const Login = () => {
 
   const handleSignInClick = () => {
     const nameValue = isSignInForm ? null : name.current.value 
-    const message = validateForm(nameValue , email.current.value , password.current.value)
+    const message = validateForm(nameValue , email.current.value , password.current.value , isSignInForm)
     setErrorMessage(message)
     
   }
