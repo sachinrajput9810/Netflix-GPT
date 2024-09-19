@@ -3,8 +3,11 @@
 - Create react app
 - setup tailwind
 - Header build
+- Routing
 - Login form
-
+- Sign up form
+- Form validation
+- useRef hook
 
 ### Architecture of the app
 

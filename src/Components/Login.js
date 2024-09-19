@@ -1,7 +1,15 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Header from './Header';
+import {validateForm} from "../utils/validate"
+
 
 const Login = () => {
+
+  const name = useRef(null)
+  const email = useRef(null) 
+  const password = useRef(null)
+
+  const [errorMessage , setErrorMessage] = useState(null)
 
   const [isSignInForm , setIsSignInForm] = useState(true)
   const toggleSignInForm = () => {
@@ -10,6 +18,13 @@ const Login = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault()
+  }
+
+  const handleSignInClick = () => {
+    const nameValue = isSignInForm ? null : name.current.value 
+    const message = validateForm(nameValue , email.current.value , password.current.value)
+    setErrorMessage(message)
+    
   }
 
   return (
@@ -30,25 +45,35 @@ const Login = () => {
         <h1 className='font-bold p-2 text-[30px]'>{isSignInForm ? "Sign In" : "Sign Up"} </h1>
 
         {!isSignInForm &&  (<input 
+          ref={name}
           type="text" 
           placeholder='Full Name' 
           className='p-3 pl-4  w-full text-black border  border-white bg-gray-200 m-3  rounded-sm' 
         />)}
 
-          <input 
+        <input 
+          ref = {email}
           type="text" 
           placeholder='Email or phone number' 
           className='p-3 pl-4  w-full  border text-black border-white bg-gray-200 m-3  rounded-sm' 
         />
 
         <input 
-          type="password" 
-          placeholder='Password' 
-          className='p-3 m-3 rounded-sm border text-black border-white pl-4 w-full bg-gray-200' 
+        ref = {password}
+        type="password" 
+        placeholder='Password' 
+        className='p-3 m-3 rounded-sm border text-black border-white pl-4 w-full bg-gray-200' 
         />
+
+        <div className='h-6 '>
+           <p className='ml-4 text-red-600'>{errorMessage}</p>
+        </div>
+
         <button 
           type="submit" 
-          className='p-2 m-3 mt-10 bg-red-700 brightness-75 saturate-200 w-full font-semibold rounded-sm'>
+          className='p-2 m-3 mt-10 bg-red-700 brightness-75 saturate-200 w-full font-semibold rounded-sm'
+          onClick={handleSignInClick}
+          >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
 
