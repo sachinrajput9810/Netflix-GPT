@@ -1,13 +1,22 @@
 import React, { useRef, useState } from 'react';
 import Header from './Header';
 import {validateForm} from "../utils/validate"
-
+import {createUserWithEmailAndPassword  , signInWithEmailAndPassword} from "firebase/auth";
+import {auth} from "../utils/firebase"
+import { useNavigate } from 'react-router-dom';
+import { updateProfile } from "firebase/auth";
+import { useDispatch } from 'react-redux';
+import { addUser } from './userSLice';
 
 const Login = () => {
 
   const name = useRef(null)
   const email = useRef(null) 
   const password = useRef(null)
+
+  const dispatch = useDispatch()
+
+  const navigate = useNavigate()
 
   const [errorMessage , setErrorMessage] = useState(null)
 
@@ -24,6 +33,50 @@ const Login = () => {
     const nameValue = isSignInForm ? null : name.current.value 
     const message = validateForm(nameValue , email.current.value , password.current.value , isSignInForm)
     setErrorMessage(message)
+
+    if(message) return  
+    
+    // Simulate authentication here
+    if(!isSignInForm){
+      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current.value, 
+            photoURL: "https://avatars.githubusercontent.com/u/165654923?v=4"
+          }).then(() => {
+            console.log("Profile updated");
+            const { uid, email, displayName, photoURL } = auth.currentUser
+            dispatch(addUser({ uid, email, displayName, photoURL }));
+            navigate("/browse");
+          }).catch((error) => {
+            setErrorMessage(error.message);
+          });
+        })
+        .catch((error) => {
+          setErrorMessage("Email Already Used"); 
+        });
+
+    }
+    
+
+    else{ 
+        signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+          .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            console.log(user)
+            navigate("/browse")
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setErrorMessage("User Not Found")
+          });
+
+    }
+
     
   }
 
@@ -71,7 +124,7 @@ const Login = () => {
 
         <button 
           type="submit" 
-          className='p-2 m-3 mt-10 bg-red-700 brightness-75 saturate-200 w-full font-semibold rounded-sm'
+          className='p-2 m-3 mt-10 bg-red-700 hover:bg-red-900 brightness-75 saturate-200 w-full font-semibold rounded-sm'
           onClick={handleSignInClick}
           >
           {isSignInForm ? "Sign In" : "Sign Up"}

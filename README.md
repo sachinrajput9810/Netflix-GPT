@@ -8,6 +8,14 @@
 - Sign up form
 - Form validation
 - useRef hook
+- Deploy app 
+- Create a sign up user
+- Implement sign in and sign up user API
+- Integrated redux with user slice
+- create redux
+- Implemented Sign out
+- update profile
+
 
 ### Architecture of the app
 
