@@ -33,16 +33,18 @@ const Header = () => {
       }
     });
     return () => unsubscribe(); 
-  }, []);
+  }, [auth, dispatch, navigate]);
 
   const handleSignOut = () => {
-    signOut(auth).then(() => {}).catch((error) => {
+    signOut(auth).then(() => {
+      // Sign-out successful
+    }).catch((error) => {
       navigate("/error");
     });
   };
 
   return (
-    <div className='  top-0 left-0 w-full bg-slate-500 bg-gradient-to-b from-black to-transparent '>
+    <div className='absolute z-30 top-0 left-0 w-full bg-gradient-to-b from-black to-transparent '>
       {/* Netflix logo section */}
       <div className="flex items-center justify-between px-8">
         <img
