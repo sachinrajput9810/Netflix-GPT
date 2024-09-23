@@ -3,10 +3,10 @@ import Header from './Header';
 import {validateForm} from "../utils/validate"
 import {createUserWithEmailAndPassword  , signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../utils/firebase"
-import { useNavigate } from 'react-router-dom';
 import { updateProfile } from "firebase/auth";
 import { useDispatch } from 'react-redux';
 import { addUser } from './userSLice';
+import { BACKGROUND_IMAGE, DUMMY_USER_ICON } from '../utils/constant';
 
 const Login = () => {
 
@@ -16,7 +16,6 @@ const Login = () => {
 
   const dispatch = useDispatch()
 
-  const navigate = useNavigate()
 
   const [errorMessage , setErrorMessage] = useState(null)
 
@@ -39,17 +38,18 @@ const Login = () => {
     // Simulate authentication here
     if(!isSignInForm){
       createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
-        .then((userCredential) => {
+          .then((userCredential) => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value, 
-            photoURL: "https://avatars.githubusercontent.com/u/165654923?v=4"
-          }).then(() => {
+            photoURL: {DUMMY_USER_ICON}
+          })
+          .then(() => {
             console.log("Profile updated");
             const { uid, email, displayName, photoURL } = auth.currentUser
             dispatch(addUser({ uid, email, displayName, photoURL }));
-            navigate("/browse");
-          }).catch((error) => {
+          })
+          .catch((error) => {
             setErrorMessage(error.message);
           });
         })
@@ -63,11 +63,7 @@ const Login = () => {
     else{ 
         signInWithEmailAndPassword(auth, email.current.value, password.current.value)
           .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-            console.log(user)
-            navigate("/browse")
-            // ...
+            const user = userCredential.user
           })
           .catch((error) => {
             const errorCode = error.code;
@@ -81,10 +77,10 @@ const Login = () => {
   }
 
   return (
-    <div className='relative h-screen w-full '>
+    <div className=' h-screen w-full '>
       <div className='absolute inset-0'>
         <img 
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/85ff76db-39e5-423a-afbc-97d3e74db71b/null/IN-en-20240909-TRIFECTA-perspective_b22117e0-4610-4d57-a695-20f77d241a4a_small.jpg" 
+          src= {BACKGROUND_IMAGE} 
           alt="logo" 
           className='w-full h-full object-cover'
         />

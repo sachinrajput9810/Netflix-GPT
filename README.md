@@ -15,7 +15,12 @@
 - create redux
 - Implemented Sign out
 - update profile
-
+- Bugfix - Fixed display of user profile pic and Display name
+- Bugfix - fixed the redirect to "/" if user try to route "/browse" without login and vice versa
+- Unsubscribed to the onAuthStateChange call back
+- Added hardcoded values to constant file (eg Urls)
+- Register to TMDB API and create an app and get access token
+- Get data from now playing movies list API
 
 ### Architecture of the app
 

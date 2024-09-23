@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { signOut } from "firebase/auth";
-import { getAuth } from 'firebase/auth';
+import { signOut, getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
-import { DUMMY_USER_ICON } from '../utils/constant';
+import { useDispatch, useSelector } from 'react-redux';
+import { DUMMY_USER_ICON, NETFLIX_LOGO } from '../utils/constant';
+import { addUser, removeUser } from './userSLice';
 
 const Header = () => {
+  const auth = getAuth();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector(store => store.user); // Access the user state from Redux
+  const user = useSelector(store => store.user);
 
   const [photoURL, setPhotoURL] = useState(DUMMY_USER_ICON);
 
@@ -18,47 +20,53 @@ const Header = () => {
       setPhotoURL(DUMMY_USER_ICON);
     }
   }, [user]);
-  
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(addUser({ uid, email, displayName, photoURL }));
+        navigate("/browse");
+      } else {
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+    return () => unsubscribe(); 
+  }, []);
 
   const handleSignOut = () => {
-    const auth = getAuth();
-    signOut(auth).then(() => {
-      navigate("/"); // Navigate to the homepage on sign-out
-    }).catch((error) => {
-      navigate("/error"); // Navigate to an error page if sign-out fails
+    signOut(auth).then(() => {}).catch((error) => {
+      navigate("/error");
     });
   };
 
   return (
-    <div className='relative flex justify-between'>
+    <div className='  top-0 left-0 w-full bg-slate-500 bg-gradient-to-b from-black to-transparent '>
       {/* Netflix logo section */}
-      <div className='absolute top-0 bg-gradient-to-b from-black left-0 right-0 z-10'>
+      <div className="flex items-center justify-between px-8">
         <img
-          src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
+          src={NETFLIX_LOGO}
           alt="Netflix Logo"
-          className='h-20 w-48 m-2 ml-32 brightness-75 saturate-150'
+          className='h-20 w-48 brightness-75 saturate-150'
         />
-      </div>
 
-      {user &&  <div className='flex ml-auto p-2 z-20 relative'>
+        {user && (
+          <div className='flex items-center'>
             <img
-            src={photoURL} // Use a fallback image if photoURL is not available
-            alt="User-logo"
-            className='w-12 h-12 rounded-full border-2 border-white'
+              src={photoURL}
+              alt="User-logo"
+              className='w-12 h-12 rounded-sm '
             />
-
-              <button
-              className='font-bold text-sm text-white mt-2  ml-4 h-8 pb-2
-               bg-red-600 px-2 py-1 rounded hover:bg-red-700 transition-all z-30'
+            <button
+              className='font-bold text-sm text-white ml-4 bg-red-600 px-4 py-2 rounded hover:bg-red-700 transition-all'
               onClick={handleSignOut}
-              >
+            >
               Sign Out
-           </button>
-          
-
-      </div> 
-      }
-
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
