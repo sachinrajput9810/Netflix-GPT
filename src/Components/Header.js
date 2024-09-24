@@ -46,7 +46,7 @@ const Header = () => {
   return (
     <div className='absolute z-30 top-0 left-0 w-full bg-gradient-to-b from-black to-transparent '>
       {/* Netflix logo section */}
-      <div className="flex items-center justify-between px-8">
+      <div className="flex items-center justify-between px-2">
         <img
           src={NETFLIX_LOGO}
           alt="Netflix Logo"

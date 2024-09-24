@@ -21,6 +21,22 @@
 - Added hardcoded values to constant file (eg Urls)
 - Register to TMDB API and create an app and get access token
 - Get data from now playing movies list API
+- Custom hook for now playing data movies
+- created movie slice
+- update store with movie data
+- Planning for main and secondary container
+- fetch data for the trailer video
+- update store with with video data
+- embedded the yt video
+- make it autoplay and mute
+- made main container looking good
+- Build secondary component
+- Build movie list
+- Build movie card
+- TMDB Image CDN URL
+- Use custom hooks for diff movie types(eg popular  , upcoming etc)
+- Made Browse page better
+
 
 ### Architecture of the app
 
