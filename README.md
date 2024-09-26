@@ -36,6 +36,11 @@
 - TMDB Image CDN URL
 - Use custom hooks for diff movie types(eg popular  , upcoming etc)
 - Made Browse page better
+- GPT Search Feature
+- GPT Search page
+- GPT Search bar
+- Multilingual feature
+- Integrate GPT Apis
 
 
 ### Architecture of the app
