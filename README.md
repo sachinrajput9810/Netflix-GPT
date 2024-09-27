@@ -40,8 +40,14 @@
 - GPT Search page
 - GPT Search bar
 - Multilingual feature
-- Integrate GPT Apis
-
+- Integrate Gemini GPT Apis
+- GPT search API call
+- Fetched GPT movies suggestion from TMDB
+- Created GPT slice added data in redux
+- Reused MovieList component to render GPT Searched Movies
+- Memoization
+- Adding .env file
+- Made our App responsive
 
 ### Architecture of the app
 

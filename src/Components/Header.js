@@ -59,9 +59,9 @@ const Header = () => {
   const showLanguageSelect = useSelector(state => state.gpt.showGptSearch)
 
   return (
-    <div className='absolute z-30 top-0 left-0 w-full bg-gradient-to-b from-black to-transparent '>
+    <div className='absolute z-30 top-0 left-0 w-full bg-gradient-to-b from-black to-transparent  '>
       {/* Netflix logo section */}
-      <div className="flex items-center justify-between px-2">
+      <div className="flex items-center justify-between px-2   flex-col  md:flex-row">
         <img
           src={NETFLIX_LOGO}
           alt="Netflix Logo"
@@ -79,21 +79,22 @@ const Header = () => {
 
             </select>}  
 
-            <button className='text-white border border-white py-2 font-semibold px-3 mr-2 bg-purple-700 rounded-lg' 
+            <button className='text-white border border-white py-2 font-semibold px-3  mr-2 bg-purple-700 rounded-lg' 
                     onClick={handleGptSearchClick}  
             > {showLanguageSelect ? "Homepage" : "GPT Search"} </button>
 
             <img
               src={photoURL}
               alt="User-logo"
-              className='w-12 border border-white h-12 rounded-sm '
+              className='w-12 border hidden md:block border-white h-12 rounded-sm '
             />
             <button
-              className='font-bold text-sm border border-white text-white ml-4 bg-red-600 px-4 py-2 opacity-100 rounded hover:bg-red-700 transition-all'
+              className='font-bold text-sm border border-white  text-white ml-4 bg-red-600 px-4 py-2 md:py-2 opacity-100 rounded hover:bg-red-700 transition-all'
               onClick={handleSignOut}
             >
               Sign Out
             </button>
+            
           </div>
         )}
       </div>

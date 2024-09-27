@@ -82,15 +82,15 @@ const Login = () => {
         <img 
           src= {BACKGROUND_IMAGE} 
           alt="logo" 
-          className='w-full h-full object-cover'
+          className='w-full h-full fixed object-cover'
         />
       </div>
 
-      <div className='absolute inset-0 bg-black opacity-60'></div>
+      <div className='fixed  inset-0 bg-black opacity-60'></div>
 
       <Header />
 
-      <form onSubmit={handleFormSubmit} className='relative z-20 bg-black/70 text-white rounded-md p-9 w-1/3 mx-auto top-20'>
+      <form onSubmit={handleFormSubmit} className='relative z-20 bg-black/70 text-white rounded-md p-9 w-full md:w-1/3 mx-auto top-20'>
         <h1 className='font-bold p-2 text-[30px]'>{isSignInForm ? "Sign In" : "Sign Up"} </h1>
 
         {!isSignInForm &&  (<input 
