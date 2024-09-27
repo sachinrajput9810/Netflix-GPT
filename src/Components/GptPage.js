@@ -9,7 +9,7 @@ const GptPage = () => {
         <img 
           src= {BACKGROUND_IMAGE} 
           alt="logo" 
-          className='w-full -z-10 absolute h-[700px] object-cover'
+          className='w-full -z-10 fixed h-[700px] object-cover'
         />
       <GptSearchBar/>
       <GptMovieSuggestion/>

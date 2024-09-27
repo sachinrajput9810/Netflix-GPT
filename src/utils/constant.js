@@ -21,3 +21,5 @@ export const SUPPORTED_LANGUAGES = [{identifier : "en" , name  :" English"} ,
                                     {identifier : "hindi" , name  :" Hindi"}  ,
                                     {identifier : "spanish" , name  :" Spanish"}
 ]
+
+export const GEMINIAI_KEY = "AIzaSyATMNwPxHv9uonNt36IaRRbihhi8FAp0K0"
