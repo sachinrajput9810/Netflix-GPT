@@ -22,4 +22,4 @@ export const SUPPORTED_LANGUAGES = [{identifier : "en" , name  :" English"} ,
                                     {identifier : "spanish" , name  :" Spanish"}
 ]
 
-export const GEMINIAI_KEY = "AIzaSyDbqd9uh06IBF4f_FrOBstKHppoXaxcG6Y"
+export const GEMINIAI_KEY = "AIzaSyA9EKxqv0U9i703OnlwvukGKwHIkLIhydY"
